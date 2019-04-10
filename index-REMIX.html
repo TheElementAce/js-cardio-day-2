@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dodging and Jumping</title>
+</head>
+<body>
+    <!-- I'm gonna make a css/js animation that shoots cannon balls at
+         the user's character, and the user has to move the character
+         to make them dodge. -->
+    
+    <div id="battleground">
+    <!-- Assets -->
+    <!-- character -->
+        <img src="mario-sprite.png" id="mario" alt="" width="60">
+    <!-- stick cannon -->
+        <img src="cannon-sprite.png" id="cannon" alt="" width="100" style="transform: scaleX(-1);">
+    <!-- cannonBall -->
+        <img src="cannonBall-sprite.png" id="cannonBall" alt="" width="125">
+    </div>
+
+    <style>
+        :root {
+            --x-upper-limit: 1000px;
+            --cannon-width: 100px;
+        }
+
+        #battleground {
+            border: solid;
+            width: 1000px;
+            height: 600px;
+        }
+
+        #mario {
+            position: absolute;
+            left: 50px;
+            top: 300px;
+            transition: all 0.25s;
+            /* transform: */
+        }
+
+        #cannon {
+            position: absolute;
+            top: 30px;
+            left: 900px;
+        }
+
+        #cannonBall {
+            position: absolute;
+            top: 30px;
+            left: 775px;
+            opacity: 1;
+        }
+
+    </style>
+
+    <script>
+
+        // Go ahead and assign all of the assets to variables
+        const mario = document.getElementById('mario')
+        mario.offsetTop = 150;
+        const marioYPosition = mario.offsetTop; // As measured from the top of the window
+        let moveDistanceLeft = 15;
+        let moveDistanceUp = 15;
+        let moveDistanceRight = 15;
+        let moveDistanceDown = 15;
+        
+        // w --> 87
+        // a --> 65
+        // s --> 83
+        // d --> 68
+        function moveMario(e) {
+
+            if (e.keyCode == 87 && moveDistanceUp <= 270) {
+
+                mario.style.transform = `translate(0px, ${moveDistanceUp * -1}px)`;
+                moveDistanceUp += 15;
+                moveDistanceDown -= 15;
+    
+            }
+
+            // if (e.keyCode == 65 && moveDistanceLeft <= 30) {
+
+            //     // console.log(mario.offsetLeft)
+            //     mario.style.transform = `translate(${moveDistanceLeft * -1}px, 0px)`;
+            //     moveDistanceLeft += 15;
+            //     // console.log(mario.offsetLeft)
+            //     // console.log("a was pressed");
+            // }
+
+            if (e.keyCode == 83 && moveDistanceDown <= 220) {
+
+                mario.style.transform = `translate(0px, ${moveDistanceDown}px)`;
+                moveDistanceDown += 15;
+                moveDistanceUp -= 15;
+            }
+
+            // if (e.keyCode == 68) {
+            //     console.log("d was pressed");
+            // }
+
+        };
+
+        window.addEventListener('keydown', moveMario);
+
+    </script>
+
+</body>
+</html>
